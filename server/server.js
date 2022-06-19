@@ -4,6 +4,10 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import passport from 'passport';
 import MongoStore from 'connect-mongo';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack.config';
 import * as models from './models';
 import * as services from './services';
 import { schema } from './schema/schema';
@@ -63,10 +67,10 @@ app.use(
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
 // a single bundle.js output of all of our client side Javascript
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpack = require('webpack');
-const webpackConfig = require('../webpack.config.js');
-app.use(webpackMiddleware(webpack(webpackConfig)));
+const compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, webpackConfig.devServer));
+app.use(webpackHotMiddleware(compiler));
 
 app.listen(4000, () => {
   console.log('Listening');

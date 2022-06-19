@@ -8,7 +8,7 @@ import styles from './App.scss';
 const App = () => {
   return (
     <div className={styles.App}>
-      <h1>SApp</h1>
+      <h1>App</h1>
       <Routes></Routes>
     </div>
   );
