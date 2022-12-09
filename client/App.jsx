@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Header } from './components';
+import { Header, LoginForm, SignupForm } from './components';
 
 import './styles/index.scss';
 
@@ -11,7 +11,11 @@ const App = () => {
   return (
     <div className={styles.App}>
       <Header />
-      <Routes></Routes>
+      <Routes>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignupForm />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+      </Routes>
     </div>
   );
 };
